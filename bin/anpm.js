@@ -12,35 +12,29 @@ program
   .version('0.0.1')
   .parse(process.argv);
 
-// console.log(program.args);
+var result1 = require('child_process').spawnSync('apm', program.args);
 
-const spawn = require('child_process').spawn;
-const apm = spawn('apm', program.args);
+if (result1.stdout.toString().trim()) {
+  console.log(result1.stdout.toString());
+}
 
-apm.stdout.on('data', (data) => {
-  console.log(`${data}`);
-});
+if (result1.stderr.toString().trim()) {
+  console.log(result1.stderr.toString());
+}
 
-apm.stderr.on('data', (data) => {
-  console.log(`${data}`);
-});
+// console.log(`------\napm exited with code ${result1.status}\n------\n`);
 
-apm.on('close', (code) => {
-  console.log(`------\napm exited with code ${code}`);
+const myPackagesFilePath = path.join(process.env['HOME'], '.atom', 'my-packages.txt');
+console.log(`anpm: Writing packages list to ${myPackagesFilePath} ...`);
+var result2 = require('child_process').spawnSync('apm', ['list', '--installed', '--bare']);
 
-  if (code === 0) {
-    const spawn2 = require('child_process').spawn;
-    const myPackagesFilePath = path.join(process.env['HOME'], '.atom', 'my-packages.txt');
-    const updateMyPackages = spawn('apm', ['list', '--installed', '--bare']);
-    updateMyPackages.stdout.on('data', (data2) => {
-      console.log(`${data2}`);
-      fs.writeFile(myPackagesFilePath, data2);
-    });
-    updateMyPackages.stderr.on('data', (data2) => {
-      console.log(`${data2}`);
-    });
-    updateMyPackages.on('close', (code2) => {
-      console.log(`------\napm exited with code ${code2}`);
-    });
-  }
-});
+if (result2.stdout.toString().trim()) {
+  // console.log(result2.stdout.toString());
+  fs.writeFile(myPackagesFilePath, result2.stdout.toString());
+}
+
+if (result2.stderr.toString().trim()) {
+  // console.log(result1.stderr.toString());
+}
+
+// console.log(`------\napm exited with code ${result1.status}\n------\n`);
