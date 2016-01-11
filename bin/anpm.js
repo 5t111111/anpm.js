@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
-* ampm.js
+* anpm.js
 */
 
 var program = require('commander');

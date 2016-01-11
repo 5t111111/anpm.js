@@ -1,5 +1,5 @@
 {
-  "name": "ampm",
+  "name": "anpm",
   "version": "1.0.0",
   "description": "silly apm wrapper command",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/5t111111/ampm.git"
+    "url": "git+https://github.com/5t111111/anpm.git"
   },
   "author": "Hirofumi Wakasugi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/5t111111/ampm/issues"
+    "url": "https://github.com/5t111111/anpm/issues"
   },
-  "homepage": "https://github.com/5t111111/ampm#readme",
-  "bin": "./bin/ampm.js",
+  "homepage": "https://github.com/5t111111/anpm#readme",
+  "bin": "./bin/anpm.js",
   "dependencies": {
     "commander": "^2.9.0"
   }
